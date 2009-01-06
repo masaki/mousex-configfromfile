@@ -100,7 +100,7 @@ Explicit arguments will override anything set by the configfile.
 =head2 get_config_from_file($file)
 
 This method is not implemented in this role, but it is required
-of all subroles. Its two arguments are the classname and the configfile,
+of all subroles. Its two arguments are the class name and the configfile,
 and it is expected to return a hashref of arguments to pass to C<new()>
 which are sourced from the configfile.
 
@@ -121,7 +121,7 @@ Example:
 =head2 configfile
 
 This is a L<Path::Class::File> object which can be coerced from a regular
-pathname string. This is the file your attributes are loaded from.
+path name string. This is the file your attributes are loaded from.
 You can add a default configfile in the class using the role and it will
 be honored at the appropriate time:
 
@@ -130,6 +130,10 @@ be honored at the appropriate time:
 =head1 AUTHOR
 
 NAKAGAWA Masaki E<lt>masaki@cpan.orgE<gt>
+ 
+=head1 THANKS TO
+
+Brandon L. Black, L<MooseX::ConfigFromFile/AUTHOR>
 
 =head1 LICENSE
 
