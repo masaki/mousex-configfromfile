@@ -1,4 +1,7 @@
 Revision history for Perl extension MouseX::ConfigFromFile
 
+0.02
+        - use Mouse 0.15
+
 0.01
         - original version
