@@ -17,6 +17,7 @@ has 'configfile' => (
 sub new_with_config {
     my ($class, %params) = @_;
 
+    # TODO: check builder and lazy_build
     my $file = defined $params{configfile}
         ? $params{configfile}
         : $class->meta->get_attribute('configfile')->default;
