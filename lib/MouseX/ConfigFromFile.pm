@@ -4,7 +4,7 @@ use 5.008_001;
 use Mouse::Role;
 use MouseX::Types::Path::Class;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 requires 'get_config_from_file';
 

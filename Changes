@@ -1,5 +1,10 @@
 Revision history for Perl extension MouseX::ConfigFromFile
 
+0.03
+        - use Mouse 0.19
+        - configfile attribute works with 'builder'
+        - added tests
+
 0.02
         - use Mouse 0.15
 
