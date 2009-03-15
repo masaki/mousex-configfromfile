@@ -1,6 +1,6 @@
 package MouseX::ConfigFromFile;
 
-use 5.8.1;
+use 5.008_001;
 use Mouse::Role;
 use MouseX::Types::Path::Class;
 
@@ -17,10 +17,20 @@ has 'configfile' => (
 sub new_with_config {
     my ($class, %params) = @_;
 
-    # TODO: check builder and lazy_build
-    my $file = defined $params{configfile}
-        ? $params{configfile}
-        : $class->meta->get_attribute('configfile')->default;
+    my $file = defined $params{configfile} ? $params{configfile} : do {
+        my $attr = $class->meta->get_attribute('configfile');
+        if ($attr->has_default) {
+            my $default = $attr->default;
+            ref($default) eq 'CODE' ? $default->($class) : $default;
+        }
+        elsif ($attr->has_builder) {
+            my $builder = $attr->builder;
+            $class->$builder();
+        }
+        else {
+            undef;
+        }
+    };
 
     my %args = (
         defined $file ? %{ $class->get_config_from_file($file) } : (),
