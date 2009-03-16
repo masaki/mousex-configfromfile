@@ -1,8 +1,10 @@
-use Test::More tests => 4;
+use Test::More tests => 5;
+use Path::Class;
 
 do {
     package MyApp;
     use Mouse;
+    use File::Spec;
 
     with 'MouseX::ConfigFromFile';
 
@@ -22,7 +24,8 @@ do {
 
 my $app = MyApp->new_with_config(name => 'MyApp');
 
-is $app->configfile => '/path/to/myapp.conf', 'configfile ok';
+is $app->configfile => file('/path/to/myapp.conf'), 'configfile ok';
+isa_ok $app->configfile => 'Path::Class::File';
 is $app->host => 'localhost', 'get_config_from_file ok';
 is $app->port => 3000, 'get_config_from_file ok';
 is $app->name => 'MyApp', 'extra params ok';

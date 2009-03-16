@@ -1,4 +1,5 @@
-use Test::More tests => 5;
+use Test::More tests => 6;
+use Path::Class;
 
 BEGIN { $ENV{ANY_MOOSE} = 'Mouse' }
 
@@ -18,14 +19,16 @@ do {
     }
 };
 
+my $file = file('/path/to/myapp.conf');
 my $app = MyApp->new_with_config(
     name       => 'MyApp',
-    configfile => '/path/to/myapp.conf',
+    configfile => "$file",
 );
 
 isa_ok $app->meta => 'Mouse::Meta::Class';
 
-is $app->configfile => '/path/to/myapp.conf', 'configfile ok';
+is $app->configfile => $file, 'configfile ok';
+isa_ok $app->configfile => 'Path::Class::File';
 is $app->host => 'localhost', 'get_config_from_file ok';
 is $app->port => 3000, 'get_config_from_file ok';
 is $app->name => 'MyApp', 'extra params ok';

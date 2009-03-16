@@ -10,6 +10,7 @@ tests 't/*.t';
 test_requires 'Any::Moose' => '0.05';
 test_requires 'Test::More';
 test_requires 'Test::UseAllModules';
+test_requires 'Path::Class';
 author_tests 'xt';
 use_test_base;
 
