@@ -1,5 +1,4 @@
-use Test::More tests => 10;
-use Path::Class;
+use Test::More;
 
 do {
     package MyApp::DefaultStr;
@@ -38,9 +37,10 @@ do {
 for my $class (qw/MyApp::DefaultStr MyApp::DefaultSub/) {
     my $app = $class->new_with_config(name => 'MyApp');
 
-    is $app->configfile => file('/path/to/myapp.conf'), 'default configfile ok';
-    isa_ok $app->configfile => 'Path::Class::File';
+    is $app->configfile => '/path/to/myapp.conf', 'default configfile ok';
     is $app->host => 'localhost', 'get_config_from_file ok';
     is $app->port => 3000, 'get_config_from_file ok';
     is $app->name => 'MyApp', 'extra params ok';
 }
+
+done_testing;

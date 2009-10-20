@@ -1,5 +1,4 @@
-use Test::More tests => 5;
-use Path::Class;
+use Test::More;
 
 do {
     package MyApp;
@@ -17,14 +16,15 @@ do {
     }
 };
 
-my $file = file('/pato/to/myapp.conf');
+my $file = '/pato/to/myapp.conf';
 my $app = MyApp->new_with_config(
     name       => 'MyApp',
-    configfile => "$file",
+    configfile => $file,
 );
 
 is $app->configfile => $file, 'configfile ok';
-isa_ok $app->configfile => 'Path::Class::File';
 is $app->host => 'localhost', 'get_config_from_file ok';
 is $app->port => 3000, 'get_config_from_file ok';
 is $app->name => 'MyApp', 'extra params ok';
+
+done_testing;
