@@ -9,9 +9,10 @@ our $VERSION = '0.03';
 requires 'get_config_from_file';
 
 has 'configfile' => (
-    is     => 'ro',
-    isa    => 'Path::Class::File',
-    coerce => 1,
+    is        => 'ro',
+    isa       => 'Path::Class::File',
+    coerce    => 1,
+    predicate => 'has_configfile',
 );
 
 sub new_with_config {
@@ -141,7 +142,7 @@ be honored at the appropriate time:
 =head1 AUTHOR
 
 NAKAGAWA Masaki E<lt>masaki@cpan.orgE<gt>
- 
+
 =head1 THANKS TO
 
 Brandon L. Black, L<MooseX::ConfigFromFile/AUTHOR>
