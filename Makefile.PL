@@ -2,17 +2,25 @@ use inc::Module::Install;
 name 'MouseX-ConfigFromFile';
 all_from 'lib/MouseX/ConfigFromFile.pm';
 
-requires 'Mouse' => '0.19';
-requires 'Mouse::Role';
-requires 'MouseX::Types::Path::Class' => '0.05';
+readme_from 'lib/MouseX/ConfigFromFile.pm';
+readme_markdown_from 'lib/MouseX/ConfigFromFile.pm';
+auto_set_repository;
+
+requires 'Mouse' => '0.39';
+requires 'MouseX::Types::Path::Class' => '0.06';
 
 tests 't/*.t';
-test_requires 'Any::Moose' => '0.05';
-test_requires 'Test::More';
+test_requires 'Test::More' => '0.94';
 test_requires 'Test::UseAllModules';
-test_requires 'Path::Class';
+
 author_tests 'xt';
-use_test_base;
+author_requires 'Test::Pod';
+author_requires 'Test::Pod::Coverage';
+author_requires 'Test::Spelling';
+author_requires 'ShipIt';
+author_requires 'ShipIt::Step::Manifest';
+author_requires 'ShipIt::Step::DistClean';
+author_requires 'ShipIt::Step::Twitter';
 
 auto_include_deps;
 WriteAll;
