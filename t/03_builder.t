@@ -1,4 +1,8 @@
+use strict;
 use Test::More;
+use File::Spec;
+
+my $file = File::Spec->catfile('path/to/myapp.conf');
 
 do {
     package MyApp;
@@ -13,17 +17,16 @@ do {
 
     has '+configfile' => (builder => '_build_configfile');
 
-    sub _build_configfile { '/path/to/myapp.conf' }
+    sub _build_configfile { $file }
 
     sub get_config_from_file {
-        my (undef, $file) = @_;
         return +{ host => 'localhost', port => 3000 };
     }
 };
 
 my $app = MyApp->new_with_config(name => 'MyApp');
 
-is $app->configfile => '/path/to/myapp.conf', 'configfile ok';
+is $app->configfile => $file, 'configfile ok';
 is $app->host => 'localhost', 'get_config_from_file ok';
 is $app->port => 3000, 'get_config_from_file ok';
 is $app->name => 'MyApp', 'extra params ok';

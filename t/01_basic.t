@@ -1,4 +1,6 @@
+use strict;
 use Test::More;
+use File::Spec;
 
 do {
     package MyApp;
@@ -16,7 +18,7 @@ do {
     }
 };
 
-my $file = '/pato/to/myapp.conf';
+my $file = File::Spec->catfile('path/to/myapp.conf');
 my $app = MyApp->new_with_config(
     name       => 'MyApp',
     configfile => $file,

@@ -1,4 +1,8 @@
+use strict;
 use Test::More;
+use File::Spec;
+
+my $file = File::Spec->catfile('path/to/myapp.conf');
 
 do {
     package MyApp::DefaultStr;
@@ -10,10 +14,9 @@ do {
     has 'host' => (is => 'rw', isa => 'Str');
     has 'port' => (is => 'rw', isa => 'Int');
 
-    has '+configfile' => (default => '/path/to/myapp.conf');
+    has '+configfile' => (default => $file);
 
     sub get_config_from_file {
-        my (undef, $file) = @_;
         return +{ host => 'localhost', port => 3000 };
     }
 
@@ -26,10 +29,9 @@ do {
     has 'host' => (is => 'rw', isa => 'Str');
     has 'port' => (is => 'rw', isa => 'Int');
 
-    has '+configfile' => (default => sub { '/path/to/myapp.conf' });
+    has '+configfile' => (default => sub { $file });
 
     sub get_config_from_file {
-        my (undef, $file) = @_;
         return +{ host => 'localhost', port => 3000 };
     }
 };
@@ -37,7 +39,7 @@ do {
 for my $class (qw/MyApp::DefaultStr MyApp::DefaultSub/) {
     my $app = $class->new_with_config(name => 'MyApp');
 
-    is $app->configfile => '/path/to/myapp.conf', 'default configfile ok';
+    is $app->configfile => $file, 'default configfile ok';
     is $app->host => 'localhost', 'get_config_from_file ok';
     is $app->port => 3000, 'get_config_from_file ok';
     is $app->name => 'MyApp', 'extra params ok';
